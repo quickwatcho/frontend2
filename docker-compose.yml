@@ -1,20 +1,28 @@
 version: '3'
 services: 
-     web:
-       build: 
-           context: .
-           dockerfile: dockerfile.dev
-       ports: 
-            - "3000:3000"
-       volumes:
-               - /app/node_modules
-               - .:/app   
-     tests:  
-         build:
-             context: .
-             dockerfile: dockerfile.dev
-         volumes:
-                 - /app/node_modules
-                 - .:/app
 
-         command: ["npm","run","test"]
+#  jenkins: 
+#    container_name: my_jenkins
+#    image: my_jenkins
+#    ports: 
+#        - "8080:8080"
+#    volumes:
+#        - "/home/ahmed/jenkins/jenkins_home:/var/jenkins_home" 
+#    networks: 
+#        - net
+
+
+  remote_nodejs: 
+    container_name: remote_js_server
+    image: node:16-alpine
+    build: 
+     context: /home/ahmed/nodejs_web/frontend2/
+    ports:
+        - "3000:3000"
+    volumes:
+        - "/home/ahmed/nodejs_web/frontend2:/app"     
+    networks: 
+        - net  
+
+networks: 
+    net: 
