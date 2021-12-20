@@ -1,8 +1,8 @@
 version: '3'
 services: 
   remote_nodejs: 
-    container_name: remote_js
-    image: node:16-alpine
+    container_name: nodejs_container
+    image: nodejs_image
     build: 
      context: .
      dockerfile: dockerfile.dev
