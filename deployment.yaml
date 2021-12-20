@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs
+  labels:
+    app: demo
+spec:
+  replicas: 2
+  selector: 
+    matchLabels:
+      service: nodejs
+  template:
+    metadata:
+      labels:
+        app: demo
+        service: nodejs
+    spec:
+      containers:
+        - name: nodejs
+          image: 490907513689.dkr.ecr.us-west-2.amazonaws.com/eks_demo:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs
+  labels:
+    app: demo
+    service: nodejs
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3050
+      targetPort: 3000
+      nodePort: 80
+      protocol: TCP
+  selector:
+    service: webapp
