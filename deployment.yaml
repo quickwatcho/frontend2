@@ -20,7 +20,7 @@ spec:
           image: 490907513689.dkr.ecr.us-west-2.amazonaws.com/eks_demo:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               protocol: TCP
 ---
 apiVersion: v1
@@ -33,9 +33,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 3000
-      targetPort: 3050
-      nodePort: 30000
+    - port: 80
+      targetPort: 80
       protocol: TCP
   selector:
     service: webapp
